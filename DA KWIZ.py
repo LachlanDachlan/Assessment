@@ -5,7 +5,7 @@ from time import sleep
 def new_game():
 
     guesses = []
-    correct_guess = 0
+    correct_guesses = 0
     question_num = 1
 
     for key in questions:
@@ -13,9 +13,41 @@ def new_game():
         print(key)
         for i in options[question_num-1]:
             print(i)
+        guess = input("Enter A, B, C or D").upper()
+        guesses.append(guess)
 
+        correct_guesses += check_answer(questions.get(key), guess)
         question_num +=1
 
+    display_score(correct_guesses, guesses)
+def check_answer(answer, guess):
+
+    if answer == guess:
+        print("Correct, +1 point")
+        return 1
+    else:
+        print("WRONG +0 point")
+        return 0
+
+def display_score(correct_guess, guesses):
+    print("---------------")
+    print()
+    print("RESULTS")
+    print()
+    print("---------------")
+    print()
+
+    print("Answers: ", end=" ")
+    for i in questions:
+        print(questions.get(i), end=" ")
+    print()
+
+    print("Guesses: ", end=" ")
+    for i in guesses:
+        print(i, end=" ")
+
+    score = int((correct_guess/len(questions))*100)
+    print("Your score is: "+str(score)+"%" " Out of 100")
 # Allows me to make the code look cool
 
 def statement_generator(statement, decoration):
@@ -37,7 +69,7 @@ def instructions():
     print()
     statement_generator("Welcome to the quiz quest, Today I will be testing you on your knowledge of osu!", "?")
     sleep(2)
-    statement_generator("You will be asked 10 questions about osu and its other game modes, all questions will be true or false", "-")
+    statement_generator("You will be asked 10 questions about osu and its other game modes, all questions will be Multi choice", "-")
     sleep(2)
     statement_generator("All questions MUST be answered with either A, B, C or D", "!")
     sleep(2)
@@ -70,23 +102,29 @@ elif play_start == "no":
 
 else:
     print("Ok, have a nice day {}".format(name))
-
+# questions
 questions = {
-    "Who is the current number one player"
-    ""
-    ""
-    ""
-    ""
-    ""
-    ""
-    ""
-    ""
-    ""
+    "Who is the current number one player": "D",
+    "Who is the most well known osu player": "B",
+    "Who created the WYSI meme": "B",
+    "Who has held the number one spot for the most time": "A",
+    "Which of these countries has not won the OWC": "C",
+    "Who is the number one Taiko player": "D",
+    "What is the current osu standard pp record": "C",
+    "Who won the first ever OWC": "D",
+    "When was osus first version released": "B"
 }
 options = [["A. RyuK", "B. Utami", "C. WhiteCat", "D. MreKk"],
-           []]
+           ["A. Shigetora", "B. BTMC", "C. WhiteCat", "D. Kariyu"],
+           ["A. Aireu", "B. Shigetora", "C. BTMC", "D. Aricin"],
+           ["A. MreKk", "B. Cookiezi", "C. WhiteCat", "D. FlyingTuna"],
+           ["A. America", "B. China", "C. Canada", "D. United Kingdom"],
+           ["A. Ney", "B. Minekuchi", "C. nameless_ll", "D. syaron105"],
+           ["A. 1156", "B. 1217", "C, 1241", "D. 1329"],
+           ["A. Japan", "B. Australia", "C. Germany", "D. Taiwan"],
+           ["A. 1999", "B. 2007", "C. 2013", "D. 2002"]]
 
-
+new_game()
 
 
 
